@@ -1,4 +1,4 @@
-const { createHashedPassword } = require('./helpers');
+const { createHashedPassword, validateEmail } = require('./helpers');
 
 const registerQuestions = [
   {
@@ -15,10 +15,7 @@ const registerQuestions = [
     type: 'input',
     name: 'email',
     message: 'Your email',
-    validate: (a) => {
-      console.info(a);
-      return true;
-    }
+    validate: validateEmail
   },
   {
     type: 'password',
