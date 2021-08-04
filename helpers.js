@@ -24,9 +24,8 @@ const saveUserId = (userId) => {
 };
 
 const readUserId = () => {
-  var data = fs.readFileSync('./config.json');
-
   try {
+    var data = fs.readFileSync('./config.json');
     userId = JSON.parse(data);
     return userId;
   } catch (err) {
