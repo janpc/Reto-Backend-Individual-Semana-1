@@ -54,11 +54,17 @@ function validateEmail(email) {
   return re.test(String(email).toLowerCase()) ? true : 'Wrong email format';
 }
 
+const isUserRegistered = () => {
+  const userId = readUserId();
+  return !!userId;
+};
+
 module.exports = {
   createHashedPassword,
   comparePassword,
   saveUserId,
   readUserId,
   askToRelog,
-  validateEmail
+  validateEmail,
+  isUserRegistered
 };

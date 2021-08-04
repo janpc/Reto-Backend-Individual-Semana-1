@@ -8,7 +8,7 @@ const {
   loginQuestions,
   projectQuestions
 } = require('./questions');
-const { askToRelog } = require('./helpers');
+const { askToRelog, isUserRegistered } = require('./helpers');
 
 program.version('1.0.0').description('NUWE user and project CLI manager');
 
@@ -47,12 +47,19 @@ program
   .alias('l')
   .description('Submit a new project repository')
   .action((url) => {
-    if (url) {
-      prompt(projectQuestions(true)).then((answers) =>
-        createProject({ github_url: url, ...answers })
-      );
+    const isRegistered = isUserRegistered();
+    if (isRegistered) {
+      if (url) {
+        prompt(projectQuestions(true)).then((answers) =>
+          createProject({ github_url: url, ...answers })
+        );
+      } else {
+        prompt(projectQuestions(false)).then((answers) =>
+          createProject(answers)
+        );
+      }
     } else {
-      prompt(projectQuestions(false)).then((answers) => createProject(answers));
+      console.info('You are not logged in');
     }
   });
 

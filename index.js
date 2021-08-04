@@ -8,7 +8,8 @@ mongoose.Promise = global.Promise;
 const db = mongoose.connect('mongodb://localhost:27017/nuwecli', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useFindAndModify: false
 });
 
 //Import models
@@ -65,8 +66,8 @@ const showUser = async () => {
 const createProject = async (project) => {
   try {
     const userId = readUserId();
-    const createdProject = await Project.create({ userId, ...project });
-    const userInfo = await User.findOneAndUpdate(
+    await Project.create({ userId, ...project });
+    await User.findOneAndUpdate(
       { _id: userId },
       { $inc: { 'github.repository_count': 1 } }
     ).exec();
