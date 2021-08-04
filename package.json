@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "NUWE user and project CLI manager",
   "main": "index.js",
+  "preferGlobal": true,
+  "bin": {
+    "nuwe": "./commands.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +21,7 @@
   },
   "homepage": "https://github.com/janpc/Reto-Backend-Individual-Semana-1#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "commander": "^8.1.0",
     "inquirer": "^8.1.2",
     "mongoose": "^5.13.5"
