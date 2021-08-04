@@ -56,8 +56,24 @@ const showUser = async () => {
 
     console.info(user);
   } catch (err) {
-    console.error(err);
+    console.error(err.message);
   }
+  mongoose.connection.close();
+};
+
+//create Project
+const createProject = async (project) => {
+  try {
+    const userId = readUserId();
+    const createdProject = await Project.create({ userId, ...project });
+    const userInfo = await User.findOneAndUpdate(
+      { _id: userId },
+      { $inc: { 'github.repository_count': 1 } }
+    ).exec();
+  } catch (err) {
+    console.error(err.message);
+  }
+
   mongoose.connection.close();
 };
 
@@ -65,5 +81,6 @@ const showUser = async () => {
 module.exports = {
   registerUser,
   userLogin,
-  showUser
+  showUser,
+  createProject
 };

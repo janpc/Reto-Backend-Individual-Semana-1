@@ -12,13 +12,10 @@ const ProjectSchema = mongoose.Schema({
     default: '',
     trim: true
   },
-  stack: [
-    {
-      type: String,
-      default: '',
-      trim: true
-    }
-  ],
+  stack: {
+    type: String,
+    default: ''
+  },
   github_url: {
     type: String,
     default: '',

@@ -38,7 +38,38 @@ const loginQuestions = [
   }
 ];
 
+const projectQuestions = (isGithubUrlSet) => {
+  const githubQuestion = isGithubUrlSet
+    ? []
+    : [
+        {
+          type: 'input',
+          name: 'github_url',
+          message: 'Github project URL:'
+        }
+      ];
+  return [
+    ...githubQuestion,
+    {
+      type: 'input',
+      name: 'name',
+      message: 'Project name:'
+    },
+    {
+      type: 'input',
+      name: 'stack',
+      message: 'Project stack:'
+    },
+    {
+      type: 'input',
+      name: 'url',
+      message: 'Deployed project URL:'
+    }
+  ];
+};
+
 module.exports = {
   registerQuestions,
-  loginQuestions
+  loginQuestions,
+  projectQuestions
 };

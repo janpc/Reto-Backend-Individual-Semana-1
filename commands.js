@@ -2,8 +2,12 @@
 
 const program = require('commander');
 const { prompt } = require('inquirer');
-const { registerUser, userLogin, showUser } = require('./index');
-const { registerQuestions, loginQuestions } = require('./questions');
+const { registerUser, userLogin, showUser, createProject } = require('./index');
+const {
+  registerQuestions,
+  loginQuestions,
+  projectQuestions
+} = require('./questions');
 const { askToRelog } = require('./helpers');
 
 program.version('1.0.0').description('NUWE user and project CLI manager');
@@ -37,5 +41,19 @@ program
   .alias('u')
   .description('Shows the actual user')
   .action(showUser);
+
+program
+  .command('submit_repository [url]')
+  .alias('l')
+  .description('Submit a new project repository')
+  .action((url) => {
+    if (url) {
+      prompt(projectQuestions(true)).then((answers) =>
+        createProject({ github_url: url, ...answers })
+      );
+    } else {
+      prompt(projectQuestions(false)).then((answers) => createProject(answers));
+    }
+  });
 
 program.parse(process.argv);
