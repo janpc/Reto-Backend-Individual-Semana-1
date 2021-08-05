@@ -27,7 +27,7 @@ const registerUser = async (user) => {
     console.info(err.message);
   }
 
-  mongoose.connection.close();
+  closeMongooseConnection();
 };
 
 //login
@@ -45,7 +45,7 @@ const userLogin = async ({ username, password }) => {
   } catch (err) {
     console.error(err.message);
   }
-  mongoose.connection.close();
+  closeMongooseConnection();
 };
 
 //showUser
@@ -59,7 +59,7 @@ const showUser = async () => {
   } catch (err) {
     console.error(err.message);
   }
-  mongoose.connection.close();
+  closeMongooseConnection();
 };
 
 //create Project
@@ -75,6 +75,24 @@ const createProject = async (project) => {
     console.error(err.message);
   }
 
+  closeMongooseConnection();
+};
+
+//setGithubInfo
+const setGithubInfo = async (info) => {
+  try {
+    const userId = readUserId();
+    await User.findOneAndUpdate(
+      { _id: userId },
+      { 'github.username': info.username, 'github.url': info.url }
+    ).exec();
+  } catch (err) {
+    console.error(err.message);
+  }
+  closeMongooseConnection();
+};
+
+const closeMongooseConnection = () => {
   mongoose.connection.close();
 };
 
@@ -83,5 +101,7 @@ module.exports = {
   registerUser,
   userLogin,
   showUser,
-  createProject
+  createProject,
+  setGithubInfo,
+  closeMongooseConnection
 };

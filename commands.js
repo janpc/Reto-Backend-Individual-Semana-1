@@ -2,11 +2,19 @@
 
 const program = require('commander');
 const { prompt } = require('inquirer');
-const { registerUser, userLogin, showUser, createProject } = require('./index');
+const {
+  registerUser,
+  userLogin,
+  showUser,
+  createProject,
+  setGithubInfo,
+  closeMongooseConnection
+} = require('./index');
 const {
   registerQuestions,
   loginQuestions,
-  projectQuestions
+  projectQuestions,
+  githubQuestions
 } = require('./questions');
 const { askToRelog, isUserRegistered } = require('./helpers');
 
@@ -21,6 +29,8 @@ program
 
     if (wantToRegister) {
       prompt(registerQuestions).then((answers) => registerUser(answers));
+    } else {
+      closeMongooseConnection();
     }
   });
 
@@ -33,6 +43,8 @@ program
 
     if (wantToRegister) {
       prompt(loginQuestions).then((answers) => userLogin(answers));
+    } else {
+      closeMongooseConnection();
     }
   });
 
@@ -44,7 +56,7 @@ program
 
 program
   .command('submit_repository [url]')
-  .alias('l')
+  .alias('sr')
   .description('Submit a new project repository')
   .action((url) => {
     const isRegistered = isUserRegistered();
@@ -60,6 +72,21 @@ program
       }
     } else {
       console.info('You are not logged in');
+      closeMongooseConnection();
+    }
+  });
+
+program
+  .command('github_config')
+  .alias('gc')
+  .description("Set user's github config")
+  .action(() => {
+    const isRegistered = isUserRegistered();
+    if (isRegistered) {
+      prompt(githubQuestions).then((answers) => setGithubInfo(answers));
+    } else {
+      console.info('You are not logged in');
+      closeMongooseConnection();
     }
   });
 

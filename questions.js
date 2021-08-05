@@ -68,8 +68,22 @@ const projectQuestions = (isGithubUrlSet) => {
   ];
 };
 
+const githubQuestions = [
+  {
+    type: 'input',
+    name: 'username',
+    message: 'Github username:'
+  },
+  {
+    type: 'input',
+    name: 'url',
+    message: 'Github url:'
+  }
+];
+
 module.exports = {
   registerQuestions,
   loginQuestions,
-  projectQuestions
+  projectQuestions,
+  githubQuestions
 };
