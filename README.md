@@ -9,7 +9,7 @@ Get a clone of the project in local. You need to have installed nodejs in your c
 
 ### Requirements 📋
 
-_You need to install nodejs_
+_You need to install nodejs and mongoDB Compas_
 
 
 ### Instalation 🔧
@@ -70,3 +70,5 @@ nuwe github_config
 - [nodejs](https://nodejs.org/en/)
 - [commander](https://tidelift.com/subscription/pkg/npm-commander?utm_source=npm-commander&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
 - [inquirer](https://github.com/SBoudrias/Inquirer.js#readme)
+- [mongoDB](https://www.mongodb.com/es)
+- [mongoose](https://mongoosejs.com/)
